@@ -15,7 +15,7 @@ class MemoController extends Controller
      */
     public function index()
     {
-        $memos = Memo::all();
+        $memos = Auth::user()->memos;
         return view('memo.index', compact('memos'));
     }
 
