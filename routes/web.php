@@ -19,7 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('memo', MemoController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('memo', MemoController::class);
+});
 
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
