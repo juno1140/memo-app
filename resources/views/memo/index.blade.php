@@ -4,27 +4,36 @@
             <form action="{{ route('memo.store') }}" method="post">
                 @csrf
                 <div class="mb-3">
-                    <textarea class="form-control" id="content" name="content" rows="3" placeholder="ここにメモを入力"></textarea>
+                    <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="3" placeholder="ここにメモを入力" required>{{ old('content') }}</textarea>
+                    @error('content')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     重要度：
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="priority" id="priority1" value="{{ \App\Models\Memo::PRIORITY_LOW }}">
+                    <div class="form-check form-check-inline @error('priority') is-invalid @enderror">
+                        <input class="form-check-input" type="radio" name="priority" id="priority1" value="{{ \App\Models\Memo::PRIORITY_LOW }}" @if(old('priority') == \App\Models\Memo::PRIORITY_LOW) checked @endif>
                         <label class="form-check-label" for="priority1">★</label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="priority" id="priority2" value="{{ \App\Models\Memo::PRIORITY_MIDDLE }}">
+                    <div class="form-check form-check-inline @error('priority') is-invalid @enderror">
+                        <input class="form-check-input" type="radio" name="priority" id="priority2" value="{{ \App\Models\Memo::PRIORITY_MIDDLE }}" @if(old('priority') == \App\Models\Memo::PRIORITY_LOW) checked @endif>
                         <label class="form-check-label" for="priority2">★★</label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="priority" id="priority3" value="{{ \App\Models\Memo::PRIORITY_HIGH }}">
+                    <div class="form-check form-check-inline @error('priority') is-invalid @enderror">
+                        <input class="form-check-input" type="radio" name="priority" id="priority3" value="{{ \App\Models\Memo::PRIORITY_HIGH }}" @if(old('priority') == \App\Models\Memo::PRIORITY_LOW) checked @endif>
                         <label class="form-check-label" for="priority3">★★★</label>
                     </div>
+                    @error('priority')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3 row">
                     <label for="staticEmail" class="col-sm-2 col-form-label">期限：</label>
                     <div class="col-sm-10">
-                        <input type="date" class="form-control" name="deadline" id="deadline">
+                        <input type="date" class="form-control @error('deadline') is-invalid @enderror" name="deadline" id="deadline" value="{{ old('deadline') }}">
+                        @error('deadline')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="text-center">
