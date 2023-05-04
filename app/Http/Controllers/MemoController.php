@@ -42,9 +42,18 @@ class MemoController extends Controller
             'content'  => ['required', 'string'],
             'priority' => ['required', 'integer', 'in:1,2,3'],
             'deadline' => ['required', 'date'],
+            'file'     => ['nullable', 'file'],
         ]);
 
-        $request->merge(['user_id' => Auth::id()]);
+        // 画像アップロード
+        $path = $request->file('file')->storePublicly('memo_images');
+
+        $request->merge([
+            'user_id' => Auth::id(),
+            'path'    => $path,
+        ]);
+
+
         Memo::create($request->all());
         return redirect()->route('memo.index')->with('status', 'メモを作成しました！');
     }
