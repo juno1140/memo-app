@@ -39,7 +39,7 @@ Route::get('/', function () {
     if (strlen($accessKey) == 32) {
 
         print "Searching the Web for: " . $term . "\n";
-        list($headers, $json) = $this->BingWebSearch($endpoint, $accessKey, $term);
+        list($headers, $json) = BingWebSearch($endpoint, $accessKey, $term);
         dd($headers);
         print "\nRelevant Headers:\n\n";
         foreach ($headers as $k => $v) {
