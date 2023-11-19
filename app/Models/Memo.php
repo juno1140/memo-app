@@ -20,7 +20,12 @@ class Memo extends Model
 
     protected $guarded = ['id'];
 
-    protected $dates = [
-        'deadline'
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'deadline' => 'datetime',
     ];
 }

@@ -46,11 +46,13 @@ class MemoController extends Controller
         ]);
 
         // 画像アップロード
-        $path = $request->file('file')->storePublicly('memo_images');
+        if ($request->file('file')) {
+            $path = $request->file('file')->storePublicly('memo_images');
+        }
 
         $request->merge([
             'user_id' => Auth::id(),
-            'path'    => $path,
+            'path'    => $path ?? null,
         ]);
 
 
